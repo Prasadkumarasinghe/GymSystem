@@ -1,0 +1,16 @@
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\SolidProject.Entities.dll.config
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\SolidProject.Entities.dll
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\SolidProject.Entities.pdb
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\EntityFramework.dll
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\EntityFramework.SqlServer.dll
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\EntityFramework.xml
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\EntityFramework.SqlServer.xml
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.csprojResolveAssemblyReference.cache
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.csproj.CoreCompileInputs.cache
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.csproj.CopyComplete
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.dll
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.pdb
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.Migrations.PK001.resources
+E:\DURANIT\Solid Architecture\SolidProject\SolidProject.Entities\obj\Debug\SolidProject.Entities.csproj.GenerateResource.cache

@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Members</h2>
+<style>
+    .Padding {
+        padding: 10px,10px,10px,10px !important
+    }
+</style>
+
+<div class="main app form" id="main">
+    <div class="Members-Banner">
+        <div class="container">
+            <div class="sub-inner">
+                <h1 class="wow fadeInUp" style="color:white;">New Members Form </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-features text-center" id="features">
+        <div class="container">
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3 ">
+                    <label>Member Id </label>
+                </div>
+                <div class="col-lg-3 ">
+                    <input id="txtMemberId" type="text" />
+                </div>
+            </div>
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <label>First Name </label>
+                </div>
+                <div class="col-lg-3 padding">
+                    <input id="txtFName" type="text" />
+                </div>
+            </div>
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <label>Last Name </label>
+                </div>
+                <div class="col-lg-3">
+                    <input id="txtLName" type="text" />
+                </div>
+            </div>
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <label>Gender </label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="txtGender" type="text">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <label>Address </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea id="txtaddress"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <label>Moblie </label>
+                </div>
+                <div class="col-lg-3">
+                    <input id="txtMobNumber" type="text" />
+                </div>
+            </div>
+            <input class="btn-success" type="button" value="Save" />
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var memberId = $('#txtMemberId').val();
+    var FName = $('#txtFName').val();
+    var LName = $('#txtLName').val();
+    var gender = $('#txtGender').val();
+    var address = $('#txtaddress').val();
+    var mobile = $('#txtMobNumber').val();
+
+    data = {
+        id: 1,
+        MemberId: memberId,
+        FName: FName,
+        LName: LName,
+        Gender: gender,
+        Address: address,
+        Mob: mobile
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "Members/SaveMember",
+        data: data,
+        success: success,
+        dataType: "JSON"
+    });
+
+    function success() {
+        alert("Success");
+    }
+</script>
