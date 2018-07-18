@@ -237,15 +237,17 @@
     }
 
     function deleteMember(id) {
-        alert(id)
-
-        $.ajax({
-            type: "POST",
-            url: "/Members/DeleteMember",
-            data: { id: id },
-            success: function (data) { alert(data); getMembers(); },
-            dataType: "JSON"
-        });
+        if (confirm('Are you sure you want to Delete This Member?')) {
+            $.ajax({
+                type: "POST",
+                url: "/Members/DeleteMember",
+                data: { id: id },
+                success: function (data) { alert(data); getMembers(); },
+                dataType: "JSON"
+            });
+        }
     }
     getMembers();
+
+
 </script>
