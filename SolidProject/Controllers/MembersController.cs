@@ -1,9 +1,12 @@
-﻿using SolidProject.Service.DTO;
+﻿using AutoMapper;
+using SolidProject.Entities.Models;
+using SolidProject.Service.DTO;
 using SolidProject.Service.Implementation;
 using SolidProject.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,9 +16,10 @@ namespace SolidProject.Controllers
     {
         IMembersService _IMembersService;
 
-        public MembersController()
+        public MembersController(IMembersService _IMembersService)
         {
-            _IMembersService = new MembersService();
+            this._IMembersService = _IMembersService;
+
         }
 
         // GET: Members
@@ -23,11 +27,30 @@ namespace SolidProject.Controllers
         {
             return View();
         }
-        public JsonResult SaveMember(MembersDTO membersModel)
+        public JsonResult SaveMember(MembersDTO memberModel)
         {
-            _IMembersService.NewMember(membersModel);
-            return Json("Successs", JsonRequestBehavior.AllowGet);
+            try
+            {
+                var result = _IMembersService.NewMember(memberModel);
+                if (result.isSave)
+                {
+                    return Json("Member added Successfuly", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(result.message, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("Failed :" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
 
+        public async Task<JsonResult> GetMembersList()
+        {
+            var membersList = await _IMembersService.ListoFMembersAsync();
+            return Json(membersList, JsonRequestBehavior.AllowGet);
         }
     }
 }

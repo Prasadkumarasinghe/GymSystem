@@ -19,9 +19,13 @@ namespace SolidProject.Entities.Repository.Implementation
 
         public IMemberRepo Members { get; private set; }
 
-        public int Commit()
+        public async Task<int> CommitAsync()
         {
-           return DbContext.SaveChanges();
+           return await DbContext.SaveChangesAsync();
+        }
+        public  int Commit()
+        {
+            return  DbContext.SaveChanges();
         }
 
         public void Dispose()

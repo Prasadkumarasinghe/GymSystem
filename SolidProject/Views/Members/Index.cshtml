@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="app-features text-center" id="features">
+    <div class="app-features form" id="features">
         <div class="container">
             <div class="col-lg-6 Padding">
                 <div class="col-lg-3 ">
@@ -48,17 +48,6 @@
             </div>
             <div class="col-lg-6 Padding">
                 <div class="col-lg-3">
-                    <label>Gender </label>
-                </div>
-                <div class="col-lg-3">
-                    <select id="txtGender" type="text">
-                        <option>Male</option>
-                        <option>Female</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-6 Padding">
-                <div class="col-lg-3">
                     <label>Address </label>
                 </div>
                 <div class="col-lg-3">
@@ -73,40 +62,178 @@
                     <input id="txtMobNumber" type="text" />
                 </div>
             </div>
-            <input class="btn-success" type="button" value="Save" />
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <label>Gender </label>
+                </div>
+                <div class="col-lg-3">
+                    <select class="dropdown text-center" id="txtGender" type="text">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 Padding">
+                <div class="col-lg-3">
+                    <input class="btn btn-success" type="button" onclick="save()" value="Save" />
+                </div>
+                <div class="col-lg-3">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="features">
+        <div class="container">
+            <table class="table table-bordered">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="tblBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="EditModal" style="width:500px;height:500px;">
+    <div class="modal-header">
+        EDIT MEMEBR
+    </div>
+    <div class="modal-body">
+        <div class="app-features " id="features">
+            <div class="">
+                <div class="col-lg-6">
+                    <div class="col-lg-3 ">
+                        <label>Member Id </label>
+                    </div>
+                    <div class="col-lg-3 ">
+                        <input id="txtMemberId" type="text" />
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <label>First Name </label>
+                    </div>
+                    <div class="col-lg-3 padding">
+                        <input id="txtFName" type="text" />
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Last Name </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <input id="txtLName" type="text" />
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Address </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <textarea id="txtaddress"></textarea>
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <label>Moblie </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <input id="txtMobNumber" type="text" />
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <label>Gender </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <select class="dropdown text-center" id="txtGender" type="text">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <input class="btn btn-success" type="button" onclick="save()" value="Save" />
+                    </div>
+                    <div class="col-lg-3">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
 <script>
+    function save() {
+        var memberId = $('#txtMemberId').val();
+        var FName = $('#txtFName').val();
+        var LName = $('#txtLName').val();
+        var gender = $('#txtGender').val();
+        var address = $('#txtaddress').val();
+        var mobile = $('#txtMobNumber').val();
 
-    var memberId = $('#txtMemberId').val();
-    var FName = $('#txtFName').val();
-    var LName = $('#txtLName').val();
-    var gender = $('#txtGender').val();
-    var address = $('#txtaddress').val();
-    var mobile = $('#txtMobNumber').val();
+        data = {
+            id: 1,
+            MemberId: memberId,
+            FName: FName,
+            LName: LName,
+            Gender: gender,
+            Address: address,
+            Mob: mobile
+        }
 
-    data = {
-        id: 1,
-        MemberId: memberId,
-        FName: FName,
-        LName: LName,
-        Gender: gender,
-        Address: address,
-        Mob: mobile
+        $.ajax({
+            type: "POST",
+            url: "/Members/SaveMember",
+            data: data,
+            success: success,
+            dataType: "JSON"
+        });
+
+        function success(data) {
+            alert(data);
+            getMembers();
+            clearTextBoxes();
+        }
     }
 
-    $.ajax({
-        type: "POST",
-        url: "Members/SaveMember",
-        data: data,
-        success: success,
-        dataType: "JSON"
-    });
 
-    function success() {
-        alert("Success");
+    function getMembers() {
+        $.ajax({
+            type: "GET",
+            url: "/Members/GetMembersList",
+            success: success,
+            dataType: "JSON"
+        });
+
+        function success(data) {
+            var i = 0;
+            $("#tblBody").empty();
+            for (var row in data) {
+                $("#tblBody").append("<tr><td>" + data[i].FName + "</td><td>" + data[i].LName + "</td><td>" + data[i].Gender + "</td><td><button value='Edit' class='btn btn-primary' OnClick=PopUpModal(" + data[i].id + ")>Edit</button> | <button  class='btn btn-danger' OnClick=DeleteMember(" + data[i].id + ")>Delete</button></td></tr>");
+                i++;
+            }
+        }
     }
+
+    function PopUpModal(id) {
+        $("#EditModal").modal();
+    }
+
+    function clearTextBoxes() {
+        $('#txtMemberId').val('');
+        $('#txtFName').val('');
+        $('#txtLName').val('');
+        $('#txtGender').val('Male');
+        $('#txtaddress').val('');
+        $('#txtMobNumber').val('');
+
+    }
+    getMembers();
 </script>

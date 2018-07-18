@@ -9,6 +9,5 @@ namespace SolidProject.Entities.Repository.Interface
 {
     public interface IMemberRepo : IRepository<Members>
     {
-
     }
 }

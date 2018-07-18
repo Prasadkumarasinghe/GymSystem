@@ -1,4 +1,5 @@
-﻿using SolidProject.Entities.Models;
+﻿using AutoMapper;
+using SolidProject.Entities.Models;
 using SolidProject.Entities.Repository.Implementation;
 using SolidProject.Entities.Repository.Interface;
 using SolidProject.Service.DTO;
@@ -13,14 +14,62 @@ namespace SolidProject.Service.Implementation
 {
     public class MembersService : IMembersService
     {
-        IUnitOfWork _IUnitOfWork = new UnitOfWork(new Entities.SolidModel());
 
-        public int NewMember(MembersDTO model)
+        IUnitOfWork _IUnitOfWork;
+        IMapper _IMapper;
+
+        //Dependency Injection Iunit of work
+        public MembersService(IUnitOfWork IUnitOfWork)
         {
-            Members membersModel = new Members();
-            membersModel.FName = model.FName;
-            _IUnitOfWork.Members.Add(membersModel);
-            return _IUnitOfWork.Commit();
+            _IUnitOfWork = IUnitOfWork;
+            ConfigAutoMapper();
+        }
+
+        //Save Member
+        public (bool isSave, string message) NewMember(MembersDTO model)
+        {
+            try
+            {
+                var modelData = _IMapper.Map<MembersDTO, Members>(model);
+                _IUnitOfWork.Members.Add(modelData);
+                var result = _IUnitOfWork.Commit();//Save to Database
+                if (result > 0)
+                    return (true, "Success");
+                else
+                    return (false, "Failes");
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+
+        //Get All the Members from the DataBase Asynchronously
+        public async Task<List<MembersDTO>> ListoFMembersAsync()
+        {
+            var allMembers = await _IUnitOfWork.Members.GetAllAsync();
+            var listResult = allMembers != null ? allMembers.ToList() : new List<Members>(); ;
+            var destination = _IMapper.Map<List<Members>, List<MembersDTO>>(listResult);
+            return destination;
+        }
+
+        //Get All the Members from the DataBase without Asynchronously
+        public List<MembersDTO> ListoFMembers()
+        {
+            var allMembers = _IUnitOfWork.Members.GetAll();
+            var listResult = allMembers != null ? allMembers.ToList() : new List<Members>(); ;
+            var destination = _IMapper.Map<List<Members>, List<MembersDTO>>(listResult);
+            return destination;
+        }
+
+        public void ConfigAutoMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Members, MembersDTO>();
+                cfg.CreateMap<MembersDTO, Members>();
+            });
+            _IMapper = config.CreateMapper();
         }
     }
 }

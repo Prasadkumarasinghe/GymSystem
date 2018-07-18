@@ -1,6 +1,7 @@
 ﻿using SolidProject.Entities.Repository.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -47,9 +48,19 @@ namespace SolidProject.Entities.Repository.Implementation
            return DbContext.Set<TEntity>().Find(id);
         }
 
+        public async Task<TEntity> GetAsync(int id)
+        {
+            return await DbContext.Set<TEntity>().FindAsync(id);
+        }
+
         public IEnumerable<TEntity> GetAll()
         {
             return DbContext.Set<TEntity>().ToList() ;
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await DbContext.Set<TEntity>().ToListAsync();
         }
     }
 }

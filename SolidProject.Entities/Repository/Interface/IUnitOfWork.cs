@@ -10,5 +10,6 @@ namespace SolidProject.Entities.Repository.Interface
     {
         IMemberRepo Members { get; }
         int Commit();
+        Task<int> CommitAsync();
     }
 }
