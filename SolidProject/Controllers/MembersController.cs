@@ -31,15 +31,8 @@ namespace SolidProject.Controllers
         {
             try
             {
-                var result = _IMembersService.NewMember(memberModel);
-                if (result.isSave)
-                {
-                    return Json("Member added Successfuly", JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(result.message, JsonRequestBehavior.AllowGet);
-                }
+                var (isSaved, message) = _IMembersService.NewMember(memberModel);
+                return Json(message, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -51,6 +44,13 @@ namespace SolidProject.Controllers
         {
             var membersList = await _IMembersService.ListoFMembersAsync();
             return Json(membersList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteMember(int id)
+        {
+            (bool isDeleted, string message) = _IMembersService.DeleteMember(id);
+            return Json(message, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

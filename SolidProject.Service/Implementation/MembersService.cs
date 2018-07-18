@@ -34,9 +34,9 @@ namespace SolidProject.Service.Implementation
                 _IUnitOfWork.Members.Add(modelData);
                 var result = _IUnitOfWork.Commit();//Save to Database
                 if (result > 0)
-                    return (true, "Success");
+                    return (true, "Member added Successfuly");
                 else
-                    return (false, "Failes");
+                    return (false, "Failed adding Member");
             }
             catch (Exception ex)
             {
@@ -70,6 +70,23 @@ namespace SolidProject.Service.Implementation
                 cfg.CreateMap<MembersDTO, Members>();
             });
             _IMapper = config.CreateMapper();
+        }
+
+        public (bool isDeleted, string message) DeleteMember(int id)
+        {
+            var memberr = _IUnitOfWork.Members.Get(id);
+
+            try
+            {
+                _IUnitOfWork.Members.Delete(memberr);
+                _IUnitOfWork.Commit();
+                return (true, "Member Deleted Successfully");
+            }
+            catch (Exception ex)
+            {
+                return (false, "Failed :"+ex.Message);
+            }
+          
         }
     }
 }

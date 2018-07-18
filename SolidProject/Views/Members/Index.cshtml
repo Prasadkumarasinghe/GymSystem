@@ -216,7 +216,7 @@
             var i = 0;
             $("#tblBody").empty();
             for (var row in data) {
-                $("#tblBody").append("<tr><td>" + data[i].FName + "</td><td>" + data[i].LName + "</td><td>" + data[i].Gender + "</td><td><button value='Edit' class='btn btn-primary' OnClick=PopUpModal(" + data[i].id + ")>Edit</button> | <button  class='btn btn-danger' OnClick=DeleteMember(" + data[i].id + ")>Delete</button></td></tr>");
+                $("#tblBody").append("<tr><td>" + data[i].FName + "</td><td>" + data[i].LName + "</td><td>" + data[i].Gender + "</td><td><button value='Edit' class='btn btn-primary' OnClick=PopUpModal(" + data[i].id + ")>Edit</button> | <button  class='btn btn-danger' OnClick=deleteMember(" + data[i].id + ")>Delete</button></td></tr>");
                 i++;
             }
         }
@@ -234,6 +234,18 @@
         $('#txtaddress').val('');
         $('#txtMobNumber').val('');
 
+    }
+
+    function deleteMember(id) {
+        alert(id)
+
+        $.ajax({
+            type: "POST",
+            url: "/Members/DeleteMember",
+            data: { id: id },
+            success: function (data) { alert(data); getMembers(); },
+            dataType: "JSON"
+        });
     }
     getMembers();
 </script>

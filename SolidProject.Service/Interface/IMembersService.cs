@@ -13,5 +13,6 @@ namespace SolidProject.Service.Interface
         (bool isSave, string message) NewMember(MembersDTO model);
         Task<List<MembersDTO>> ListoFMembersAsync();
         List<MembersDTO> ListoFMembers();
+        (bool isDeleted, string message) DeleteMember(int id);
     }
 }

@@ -14,6 +14,7 @@ using Unity.Injection;
 
 namespace SolidProject.App_Start
 {
+    //unity configuration class
     public static class DIConfig
     {
         public static void ConfigureUnityContainer()
@@ -30,6 +31,7 @@ namespace SolidProject.App_Start
         }
     }
 
+    //Unity reslover
     public class unityDependencyResolver : IDependencyResolver
     {
         private IUnityContainer _IUnityContainer;
