@@ -88,5 +88,24 @@ namespace SolidProject.Service.Implementation
             }
           
         }
+
+        public (bool isUpdated, string message) UpdateMember(MembersDTO model)
+        {
+            var modelData = _IMapper.Map<MembersDTO, Members>(model);
+            _IUnitOfWork.Members.Update(modelData);
+            var result = _IUnitOfWork.Commit();
+
+            if (result > 0)
+                return (true, "Member Updated Successfuly");
+            else
+                return (false, "Failed updating Member");
+        }
+
+        public async Task<MembersDTO> GetMemberAsync(int id)
+        {
+            var member=await _IUnitOfWork.Members.GetAsync(id);
+            var modal = _IMapper.Map<Members, MembersDTO>(member);
+            return modal;
+        }
     }
 }

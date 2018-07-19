@@ -52,5 +52,17 @@ namespace SolidProject.Controllers
             return Json(message, JsonRequestBehavior.AllowGet);
 
         }
+
+        public JsonResult UpdateMemebr(MembersDTO memberModel)
+        {
+            (bool isUpdated, string message) = _IMembersService.UpdateMember(memberModel);
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> GetMember(int id)
+        {
+            var membersList = await _IMembersService.GetMemberAsync(id);
+            return Json(membersList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

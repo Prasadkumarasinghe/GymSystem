@@ -10,9 +10,14 @@ namespace SolidProject.Service.Interface
 {
     public interface IMembersService
     {
-        (bool isSave, string message) NewMember(MembersDTO model);
+
         Task<List<MembersDTO>> ListoFMembersAsync();
         List<MembersDTO> ListoFMembers();
+        Task<MembersDTO> GetMemberAsync(int id);
+
+        (bool isSave, string message) NewMember(MembersDTO model);
         (bool isDeleted, string message) DeleteMember(int id);
+        (bool isUpdated, string message) UpdateMember(MembersDTO model);
+
     }
 }

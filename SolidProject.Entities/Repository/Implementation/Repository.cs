@@ -62,5 +62,13 @@ namespace SolidProject.Entities.Repository.Implementation
         {
             return await DbContext.Set<TEntity>().ToListAsync();
         }
+
+
+        public void Update(TEntity entity)
+        {
+            DbContext.Set<TEntity>().Attach(entity);
+            var entry = DbContext.Entry(entity);
+            entry.State = EntityState.Modified;
+        }
     }
 }

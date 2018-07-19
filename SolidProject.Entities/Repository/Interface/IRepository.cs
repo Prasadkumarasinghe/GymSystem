@@ -21,5 +21,7 @@ namespace SolidProject.Entities.Repository.Interface
 
         Task<TEntity> GetAsync(int id);
         Task<IEnumerable<TEntity>> GetAllAsync();
+
+        void Update(TEntity entity);
     }
 }
